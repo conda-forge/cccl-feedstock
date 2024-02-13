@@ -1,7 +1,5 @@
 {% set name = "cccl" %}
 {% set version = "2.1.0" %}
-{% set extension = "tar.gz" %}  # [not win]
-{% set extension = "zip" %}  # [win]
 
 # CUDA C++ Core Libraries (CCCL) includes thrust, cub, and libcudacxx. These are header-only libraries.
 # The cccl package ships CCCL headers in the environment's include directory for use in downstream recipes that require CCCL. It follows CCCL upstream versioning. Use this package to say, "I want a specific version of CCCL headers when building my package (which may be newer than the versions shipped in the latest CUDA Toolkit)."
@@ -13,18 +11,15 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/NVIDIA/thrust/archive/refs/tags/{{ version }}.{{ extension }}
+  - url: https://github.com/NVIDIA/thrust/archive/refs/tags/{{ version }}.tar.gz
     folder: thrust
-    sha256: ebfa1a31867a95b8b0555ae45fc7c45538edfa5929ec718951eae0bbc7ed3108  # [linux]
-    sha256: 00d0db34bac00c3b079654a997443952ae724142b464c427207b60d853522f1d  # [win]
-  - url: https://github.com/NVIDIA/cub/archive/refs/tags/{{ version }}.{{ extension }}
+    sha256: ebfa1a31867a95b8b0555ae45fc7c45538edfa5929ec718951eae0bbc7ed3108
+  - url: https://github.com/NVIDIA/cub/archive/refs/tags/{{ version }}.tar.gz
     folder: cub
-    sha256: 60f7633c81c8c0e970bcf59fa6d19a0ed136524dbbcd52b94ea42721dde8cd6b  # [linux]
-    sha256: 8ec47307f5e99379ac1cf6722cd5a24fc15b84b0f5361bebd453645a5e4bb34d  # [win]
-  - url: https://github.com/NVIDIA/libcudacxx/archive/refs/tags/{{ version }}.{{ extension }}
+    sha256: 60f7633c81c8c0e970bcf59fa6d19a0ed136524dbbcd52b94ea42721dde8cd6b
+  - url: https://github.com/NVIDIA/libcudacxx/archive/refs/tags/{{ version }}.tar.gz
     folder: libcudacxx
-    sha256: 0c140aedd4fbc22e0432badb2a195274c8800f8d8d7d4bc917ea3f8a9810f6ce  # [linux]
-    sha256: f1fb36ac676aabbfd48ba94c5bd038f118f3af4b1bf49063c9c8812bbd30c9eb  # [win]
+    sha256: 0c140aedd4fbc22e0432badb2a195274c8800f8d8d7d4bc917ea3f8a9810f6ce
 
 build:
   number: 1
