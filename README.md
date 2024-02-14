@@ -3,13 +3,13 @@ About cccl-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cccl-feedstock/blob/main/LICENSE.txt)
 
-Home: https://developer.nvidia.com/cuda-toolkit
+Home: https://github.com/NVIDIA/cccl
 
-Package license: [Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License](https://docs.nvidia.com/cuda/eula/index.html)
+Package license: [Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License](https://github.com/NVIDIA/cccl/blob/main/LICENSE)
 
 Summary: CUDA C++ Core Libraries
 
-Documentation: https://docs.nvidia.com/cuda/index.html
+Documentation: https://nvidia.github.io/cccl/
 
 Current build status
 ====================
