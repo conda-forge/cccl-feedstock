@@ -1,5 +1,5 @@
 {% set name = "cccl" %}
-{% set version = "2.1.0" %}
+{% set version = "2.2.0" %}
 
 # CUDA C++ Core Libraries (CCCL) includes thrust, cub, and libcudacxx. These are header-only libraries.
 # The cccl package ships CCCL headers in the environment's include directory for use in downstream recipes that require CCCL. It follows CCCL upstream versioning. Use this package to say, "I want a specific version of CCCL headers when building my package (which may be newer than the versions shipped in the latest CUDA Toolkit)."
@@ -11,22 +11,16 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/NVIDIA/thrust/archive/refs/tags/{{ version }}.tar.gz
-    folder: thrust
-    sha256: ebfa1a31867a95b8b0555ae45fc7c45538edfa5929ec718951eae0bbc7ed3108
-  - url: https://github.com/NVIDIA/cub/archive/refs/tags/{{ version }}.tar.gz
-    folder: cub
-    sha256: 60f7633c81c8c0e970bcf59fa6d19a0ed136524dbbcd52b94ea42721dde8cd6b
-  - url: https://github.com/NVIDIA/libcudacxx/archive/refs/tags/{{ version }}.tar.gz
-    folder: libcudacxx
-    sha256: 0c140aedd4fbc22e0432badb2a195274c8800f8d8d7d4bc917ea3f8a9810f6ce
+  url: https://github.com/NVIDIA/cccl/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: e27678a9d583f9994e591367e864425e722050a9ee1d721b2bd736b442b768d4
 
 build:
-  number: 1
+  number: 0
   skip: true  # [osx]
 
 test:
   commands:
+    - test -d $PREFIX/lib/cmake/cccl        # [linux]
     - test -d $PREFIX/lib/cmake/thrust      # [linux]
     - test -d $PREFIX/lib/cmake/cub         # [linux]
     - test -d $PREFIX/lib/cmake/libcudacxx  # [linux]
@@ -34,6 +28,7 @@ test:
     - test -d $PREFIX/include/cub           # [linux]
     - test -d $PREFIX/include/cuda          # [linux]
     - test -d $PREFIX/include/nv            # [linux]
+    - if not exist %LIBRARY_LIB%\cmake\cccl exit 1        # [win]
     - if not exist %LIBRARY_LIB%\cmake\thrust exit 1      # [win]
     - if not exist %LIBRARY_LIB%\cmake\cub exit 1         # [win]
     - if not exist %LIBRARY_LIB%\cmake\libcudacxx exit 1  # [win]
@@ -43,15 +38,12 @@ test:
     - if not exist %LIBRARY_INC%\nv exit 1      # [win]
 
 about:
-  home: https://developer.nvidia.com/cuda-toolkit
-  license_file:
-    - cub/LICENSE.TXT
-    - thrust/LICENSE
-    - libcudacxx/LICENSE.TXT
+  home: https://github.com/NVIDIA/cccl
+  license_file: LICENSE
   license: Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License
-  license_url: https://docs.nvidia.com/cuda/eula/index.html
+  license_url: https://github.com/NVIDIA/cccl/blob/main/LICENSE
   summary: CUDA C++ Core Libraries
-  doc_url: https://docs.nvidia.com/cuda/index.html
+  doc_url: https://nvidia.github.io/cccl/
 
 extra:
   recipe-maintainers:

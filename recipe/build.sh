@@ -3,6 +3,8 @@
 mkdir -p ${PREFIX}/lib/cmake
 mkdir -p ${PREFIX}/include
 
+cp -rv lib/cmake/cccl ${PREFIX}/lib/cmake
+
 mv -v thrust/thrust/cmake ${PREFIX}/lib/cmake/thrust
 mv -v cub/cub/cmake ${PREFIX}/lib/cmake/cub
 cp -rv libcudacxx/lib/cmake/libcudacxx ${PREFIX}/lib/cmake

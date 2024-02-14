@@ -2,6 +2,8 @@ if not exist %PREFIX% mkdir %PREFIX%
 mkdir %LIBRARY_LIB%\cmake
 mkdir %LIBRARY_INC%
 
+move lib\cmake\cccl %LIBRARY_LIB%\cmake
+
 move thrust\thrust\cmake %LIBRARY_LIB%\cmake\thrust
 move cub\cub\cmake %LIBRARY_LIB%\cmake\cub
 move libcudacxx\lib\cmake\libcudacxx %LIBRARY_LIB%\cmake
