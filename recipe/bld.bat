@@ -1,14 +1,21 @@
-if not exist %PREFIX% mkdir %PREFIX%
-mkdir %LIBRARY_LIB%\cmake
-mkdir %LIBRARY_INC%
+@echo on
 
-move lib\cmake\cccl %LIBRARY_LIB%\cmake
+mkdir build_release
+if errorlevel 1 exit 1
 
-move thrust\thrust\cmake %LIBRARY_LIB%\cmake\thrust
-move cub\cub\cmake %LIBRARY_LIB%\cmake\cub
-move libcudacxx\lib\cmake\libcudacxx %LIBRARY_LIB%\cmake
+pushd build_release
+if errorlevel 1 exit 1
 
-move thrust\thrust %LIBRARY_INC%
-move cub\cub %LIBRARY_INC%
-move libcudacxx\include\cuda %LIBRARY_INC%
-move libcudacxx\include\nv %LIBRARY_INC%
+cmake %CMAKE_ARGS% ^
+      -G "Ninja" ^
+      -DCMAKE_BUILD_TYPE:STRING=Release ^
+      -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
+      -DCMAKE_INSTALL_LIBDIR:PATH=%LIBRARY_LIB% ^
+      "%SRC_DIR%"
+if errorlevel 1 exit 1
+
+cmake --build . --target install
+if errorlevel 1 exit 1
+
+popd
+if errorlevel 1 exit 1

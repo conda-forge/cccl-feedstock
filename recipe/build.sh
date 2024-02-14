@@ -1,15 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-mkdir -p ${PREFIX}/lib/cmake
-mkdir -p ${PREFIX}/include
+set -xeuo pipefail
 
-cp -rv lib/cmake/cccl ${PREFIX}/lib/cmake
+mkdir build_release
+pushd build_release
 
-mv -v thrust/thrust/cmake ${PREFIX}/lib/cmake/thrust
-mv -v cub/cub/cmake ${PREFIX}/lib/cmake/cub
-cp -rv libcudacxx/lib/cmake/libcudacxx ${PREFIX}/lib/cmake
+cmake ${CMAKE_ARGS} \
+      -G "Ninja" \
+      -DCMAKE_BUILD_TYPE:STRING=Release \
+      -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      -DCMAKE_INSTALL_LIBDIR:PATH="${PREFIX}/lib" \
+      "${SRC_DIR}"
 
-cp -rv thrust/thrust ${PREFIX}/include
-cp -rv cub/cub ${PREFIX}/include
-cp -rv libcudacxx/include/cuda ${PREFIX}/include
-cp -rv libcudacxx/include/nv ${PREFIX}/include
+cmake --build . --target install
+
+popd

@@ -17,6 +17,19 @@ source:
 build:
   number: 0
   skip: true  # [osx]
+  skip: true  # [cuda_compiler_version != "11.8"]
+  ignore_run_exports_from:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("cuda") }}
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("cuda") }}
+    - cmake
+    - ninja
 
 test:
   commands:
