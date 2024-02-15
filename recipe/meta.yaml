@@ -59,8 +59,10 @@ test:
     - if not exist %LIBRARY_INC%\cuda exit 1    # [win]
     - if not exist %LIBRARY_INC%\nv exit 1      # [win]
     # Test CMake build
-    - cmake -G "Ninja" test_cmake
+    - pushd test_cmake
+    - cmake -G "Ninja" .
     - cmake --build . --config Release
+    - popd
 
 about:
   home: https://github.com/NVIDIA/cccl
