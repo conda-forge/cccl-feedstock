@@ -32,7 +32,16 @@ requirements:
     - ninja
 
 test:
+  requires:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("cuda") }}
+    - cmake
+    - ninja
+  files:
+    - test_cmake
   commands:
+    # Check CMake and header directories
     - test -d $PREFIX/lib/cmake/cccl        # [linux]
     - test -d $PREFIX/lib/cmake/thrust      # [linux]
     - test -d $PREFIX/lib/cmake/cub         # [linux]
@@ -49,6 +58,9 @@ test:
     - if not exist %LIBRARY_INC%\cub exit 1     # [win]
     - if not exist %LIBRARY_INC%\cuda exit 1    # [win]
     - if not exist %LIBRARY_INC%\nv exit 1      # [win]
+    # Test CMake build
+    - cmake -G "Ninja" test_cmake
+    - cmake --build . --config Release
 
 about:
   home: https://github.com/NVIDIA/cccl
