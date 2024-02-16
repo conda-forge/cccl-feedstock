@@ -1,13 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-mkdir -p ${PREFIX}/lib/cmake
-mkdir -p ${PREFIX}/include
+set -xeuo pipefail
 
-mv -v thrust/thrust/cmake ${PREFIX}/lib/cmake/thrust
-mv -v cub/cub/cmake ${PREFIX}/lib/cmake/cub
-cp -rv libcudacxx/lib/cmake/libcudacxx ${PREFIX}/lib/cmake
+mkdir build_release
+pushd build_release
 
-cp -rv thrust/thrust ${PREFIX}/include
-cp -rv cub/cub ${PREFIX}/include
-cp -rv libcudacxx/include/cuda ${PREFIX}/include
-cp -rv libcudacxx/include/nv ${PREFIX}/include
+cmake ${CMAKE_ARGS} \
+      -G "Ninja" \
+      -DCMAKE_BUILD_TYPE:STRING=Release \
+      -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      -DCMAKE_INSTALL_LIBDIR:PATH="lib" \
+      -DCCCL_ENABLE_TESTING:BOOL=OFF \
+      -DCUB_ENABLE_TESTING:BOOL=OFF \
+      -DTHRUST_ENABLE_TESTING:BOOL=OFF \
+      -DLIBCUDACXX_ENABLE_LIBCUDACXX_TESTS:BOOL=OFF \
+      "${SRC_DIR}"
+
+cmake --build . --target install
+
+popd
