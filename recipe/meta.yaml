@@ -15,7 +15,7 @@ source:
   sha256: 7251733c68a05bcb9671dfb0d37e55a5219843d5ba88370234e28bb3c98d545c
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   skip: true  # [cuda_compiler_version != "11.8"]
   ignore_run_exports_from:
@@ -40,6 +40,7 @@ test:
     - ninja
   files:
     - test_cmake
+    - verify-version.cmake  # [linux]
   commands:
     # Check CMake and header directories
     - test -d $PREFIX/lib/cmake/cccl        # [linux]
@@ -58,6 +59,8 @@ test:
     - if not exist %LIBRARY_INC%\cub exit 1     # [win]
     - if not exist %LIBRARY_INC%\cuda exit 1    # [win]
     - if not exist %LIBRARY_INC%\nv exit 1      # [win]
+    # Extract the CCCL version and compare to the declared version
+    - '[[ "$(cmake -DCCCL_VERSION_FILE="$PREFIX/lib/cmake/cccl/cccl-config-version.cmake" -P verify-version.cmake)" == "{{ version }}" ]] || exit 1'  # [linux]
     # Test CMake build
     - pushd test_cmake
     - cmake -G "Ninja" .
