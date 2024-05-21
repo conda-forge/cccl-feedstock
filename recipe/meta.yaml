@@ -35,6 +35,7 @@ requirements:
 
 test:
   requires:
+    - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - {{ compiler("cuda") }}
