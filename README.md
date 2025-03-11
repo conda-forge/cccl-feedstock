@@ -7,7 +7,7 @@ Home: https://github.com/NVIDIA/cccl
 
 Package license: [Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License](https://github.com/NVIDIA/cccl/blob/main/LICENSE)
 
-Summary: CUDA C++ Core Libraries
+Summary: CUDA Core Compute Libraries
 
 Documentation: https://nvidia.github.io/cccl/
 
