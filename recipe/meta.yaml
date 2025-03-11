@@ -1,7 +1,7 @@
 {% set name = "cccl" %}
 {% set version = "2.8.1" %}
 
-# CUDA C++ Core Libraries (CCCL) includes thrust, cub, and libcudacxx. These are header-only libraries.
+# CUDA Core Compute Libraries (CCCL) includes thrust, cub, and libcudacxx. These are header-only libraries.
 # The cccl package ships CCCL headers in the environment's include directory for use in downstream recipes that require CCCL. It follows CCCL upstream versioning. Use this package to say, "I want a specific version of CCCL headers when building my package (which may be newer than the versions shipped in the latest CUDA Toolkit)."
 # The cuda-cccl_{{ target_platform }} package (e.g. cuda-cccl_linux-64) ships CCCL headers in 'targets/.../include' that can be used by nvcc, the CUDA compiler. It follows CUDA Toolkit versioning. This package should only be a dependency of the cuda-cudart / cuda-nvcc packages that require CCCL to function. It is target-specific to allow for cross-compilation, as a dependency of cuda-nvcc.
 # The cuda-cccl package is a metapackage that depends on cccl and cuda-cccl_{{ target_platform }} to ensure that versions are consistent. Use this package to say, "I want to build with the thrust headers that shipped with CUDA Toolkit X.Y" by adding dependencies on `cuda-cccl` and `cuda-version X.Y`.
@@ -13,9 +13,12 @@ package:
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v{{ version }}.tar.gz
   sha256: bba3e445b843e4eeffbe77b323016178c3fafe8b8c3898074a553a362a1b845a
+  patches:
+    # Disable conda's CMAKE_FIND_ROOT_PATH, which breaks cudax include path discovery
+    - patches/0001-Disable-conda-CMAKE_FIND_ROOT_PATH.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   skip: true  # [cuda_compiler_version != "11.8"]
   ignore_run_exports_from:
@@ -46,22 +49,26 @@ test:
     - verify-version.cmake  # [linux]
   commands:
     # Check CMake and header directories
-    - test -d $PREFIX/lib/cmake/cccl        # [linux]
-    - test -d $PREFIX/lib/cmake/thrust      # [linux]
-    - test -d $PREFIX/lib/cmake/cub         # [linux]
-    - test -d $PREFIX/lib/cmake/libcudacxx  # [linux]
-    - test -d $PREFIX/include/thrust        # [linux]
-    - test -d $PREFIX/include/cub           # [linux]
-    - test -d $PREFIX/include/cuda          # [linux]
-    - test -d $PREFIX/include/nv            # [linux]
+    - test -d $PREFIX/lib/cmake/cccl             # [linux]
+    - test -d $PREFIX/lib/cmake/thrust           # [linux]
+    - test -d $PREFIX/lib/cmake/cub              # [linux]
+    - test -d $PREFIX/lib/cmake/libcudacxx       # [linux]
+    - test -d $PREFIX/lib/cmake/cudax            # [linux]
+    - test -d $PREFIX/include/thrust             # [linux]
+    - test -d $PREFIX/include/cub                # [linux]
+    - test -d $PREFIX/include/cuda               # [linux]
+    - test -d $PREFIX/include/nv                 # [linux]
+    - test -d $PREFIX/include/cuda/experimental  # [linux]
     - if not exist %LIBRARY_LIB%\cmake\cccl exit 1        # [win]
     - if not exist %LIBRARY_LIB%\cmake\thrust exit 1      # [win]
     - if not exist %LIBRARY_LIB%\cmake\cub exit 1         # [win]
     - if not exist %LIBRARY_LIB%\cmake\libcudacxx exit 1  # [win]
-    - if not exist %LIBRARY_INC%\thrust exit 1  # [win]
-    - if not exist %LIBRARY_INC%\cub exit 1     # [win]
-    - if not exist %LIBRARY_INC%\cuda exit 1    # [win]
-    - if not exist %LIBRARY_INC%\nv exit 1      # [win]
+    - if not exist %LIBRARY_LIB%\cmake\cudax exit 1       # [win]
+    - if not exist %LIBRARY_INC%\thrust exit 1             # [win]
+    - if not exist %LIBRARY_INC%\cub exit 1                # [win]
+    - if not exist %LIBRARY_INC%\cuda exit 1               # [win]
+    - if not exist %LIBRARY_INC%\nv exit 1                 # [win]
+    - if not exist %LIBRARY_INC%\cuda\experimental exit 1  # [win]
     # Extract the CCCL version and compare to the declared version
     - '[[ "$(cmake -DCCCL_VERSION_FILE="$PREFIX/lib/cmake/cccl/cccl-config-version.cmake" -P verify-version.cmake)" == "{{ version }}" ]] || exit 1'  # [linux]
     # Test CMake build
@@ -75,7 +82,7 @@ about:
   license_file: LICENSE
   license: Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License
   license_url: https://github.com/NVIDIA/cccl/blob/main/LICENSE
-  summary: CUDA C++ Core Libraries
+  summary: CUDA Core Compute Libraries
   doc_url: https://nvidia.github.io/cccl/
 
 extra:
