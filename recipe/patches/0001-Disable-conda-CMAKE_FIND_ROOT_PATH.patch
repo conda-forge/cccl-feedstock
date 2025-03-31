@@ -1,0 +1,24 @@
+From e8d0d34660d52613f2f2c492f279c5d86641dbcc Mon Sep 17 00:00:00 2001
+From: Bradley Dice <bdice@bradleydice.com>
+Date: Tue, 11 Mar 2025 17:49:42 -0500
+Subject: [PATCH] Disable conda CMAKE_FIND_ROOT_PATH.
+
+---
+ lib/cmake/cudax/cudax-config.cmake | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/cmake/cudax/cudax-config.cmake b/lib/cmake/cudax/cudax-config.cmake
+index 49b41e6969..00561f48e8 100644
+--- a/lib/cmake/cudax/cudax-config.cmake
++++ b/lib/cmake/cudax/cudax-config.cmake
+@@ -15,6 +15,7 @@ set(cn_cmake_dir "${CMAKE_CURRENT_LIST_DIR}")
+ set(cn_prefix_dir "${cn_cmake_dir}/../../..")
+ find_path(cn_include_dir "cuda/experimental/version.cuh"
+   REQUIRED
++  NO_CMAKE_FIND_ROOT_PATH
+   NO_DEFAULT_PATH NO_CACHE REQUIRED
+   HINTS
+     "${cn_prefix_dir}/cudax/include" # Source
+-- 
+2.45.1
+
