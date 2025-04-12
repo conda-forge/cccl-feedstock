@@ -1,5 +1,5 @@
 {% set name = "cccl" %}
-{% set version = "2.8.2" %}
+{% set version = "2.8.3" %}
 
 # CUDA Core Compute Libraries (CCCL) includes thrust, cub, and libcudacxx. These are header-only libraries.
 # The cccl package ships CCCL headers in the environment's include directory for use in downstream recipes that require CCCL. It follows CCCL upstream versioning. Use this package to say, "I want a specific version of CCCL headers when building my package (which may be newer than the versions shipped in the latest CUDA Toolkit)."
@@ -12,13 +12,13 @@ package:
 
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 141801ddddf5b911f64f97be66a7c75f98374bebca60f275bedec75b8eeab345
+  sha256: e24b56ee796c5777d679facfade2285cdfb8dc4262da8fc3261348c36e21a868
   patches:
     # Disable conda's CMAKE_FIND_ROOT_PATH, which breaks cudax include path discovery
     - patches/0001-Disable-conda-CMAKE_FIND_ROOT_PATH.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [osx]
   skip: true  # [cuda_compiler_version != "11.8"]
   ignore_run_exports_from:
