@@ -12,10 +12,7 @@ package:
 
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: e24b56ee796c5777d679facfade2285cdfb8dc4262da8fc3261348c36e21a868
-  patches:
-    # Disable conda's CMAKE_FIND_ROOT_PATH, which breaks cudax include path discovery
-    - patches/0001-Disable-conda-CMAKE_FIND_ROOT_PATH.patch
+  sha256: e24b56ee796c5777d679facfade2285cdfb8dc4262da8fc3261348c36e21a86
 
 build:
   number: 0
