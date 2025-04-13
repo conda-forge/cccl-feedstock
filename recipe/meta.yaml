@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: e24b56ee796c5777d679facfade2285cdfb8dc4262da8fc3261348c36e21a86
+  sha256: e24b56ee796c5777d679facfade2285cdfb8dc4262da8fc3261348c36e21a868
 
 build:
   number: 0
