@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cccl-feedstock/
 
 Home: https://github.com/NVIDIA/cccl
 
-Package license: [Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License](https://github.com/NVIDIA/cccl/blob/main/LICENSE)
+Package license: Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND BSL-1.0 AND NCSA AND MIT AND LicenseRef-NVIDIA-Software-License
 
 Summary: CUDA Core Compute Libraries
 
