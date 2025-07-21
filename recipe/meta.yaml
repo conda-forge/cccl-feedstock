@@ -33,6 +33,8 @@ requirements:
     - {{ compiler("cuda") }}
     - cmake
     - ninja
+  host:
+    - libcurand-dev
 
 test:
   requires:
