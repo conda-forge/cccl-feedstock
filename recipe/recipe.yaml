@@ -17,7 +17,7 @@ source:
   sha256: 7531bcfd93bbf054389f9b503407d80e58bb6ea0ddd9ca5a54dfa486f3e86962
 
 build:
-  number: 1
+  number: 0
   skip:
     - osx
     # cccl is header-only; it's enough to build it once (and ignore the run-exports)
