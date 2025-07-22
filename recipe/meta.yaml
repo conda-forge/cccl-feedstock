@@ -15,14 +15,16 @@ source:
   sha256: 226d4794c5f0cbb6040d022a9bcf8be40cbc2fa147b633940d9b439529ce6a4b
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
-  skip: true  # [cuda_compiler_version != "11.8"]
+  # cccl is header-only; it's enough to build it once (and ignore the run-exports)
+  skip: true  # [cuda_compiler_version != cuda_compiler_version_min]
   ignore_run_exports_from:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - {{ compiler("cuda") }}
+    - libcurand-dev
 
 requirements:
   build:
@@ -32,6 +34,8 @@ requirements:
     - {{ compiler("cuda") }}
     - cmake
     - ninja
+  host:
+    - libcurand-dev
 
 test:
   requires:
