@@ -9,6 +9,7 @@ cmake ${CMAKE_ARGS} \
       -G "Ninja" \
       -DCMAKE_BUILD_TYPE:STRING=Release \
       -DCMAKE_INSTALL_PREFIX:PATH="${PREFIX}" \
+      -DCMAKE_INSTALL_INCLUDEDIR:PATH="include/cccl" \
       -DCMAKE_INSTALL_LIBDIR:PATH="lib" \
       -DCCCL_ENABLE_UNSTABLE:BOOL=ON \
       -DCCCL_ENABLE_CUDAX:BOOL=ON \
