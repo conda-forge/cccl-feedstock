@@ -20,6 +20,7 @@ build:
   number: 2
   skip:
     - osx
+    - ppc64le
     # cccl is header-only; it's enough to build it once (and ignore the run-exports)
     - cuda_compiler_version != cuda_compiler_version_min
 
