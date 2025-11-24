@@ -6,7 +6,7 @@ schema_version: 1
 
 context:
   name: cccl
-  version: "3.1.2"
+  version: "3.1.3"
 
 package:
   name: ${{ name|lower }}
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 2c75331057ac38381176008c47a611b4a848cb42640510b11e13cebb356515b6
+  sha256: ba7ee90d0a62c9aa82e43d7a16b2ec9fe4c86c41faf49afaa14b1d5d39b61ba4
 
 build:
   number: 0
