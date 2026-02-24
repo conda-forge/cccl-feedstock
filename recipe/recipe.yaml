@@ -34,6 +34,7 @@ requirements:
     - ninja
   host:
     - libcurand-dev
+    - libcufile-dev
   ignore_run_exports:
     from_package:
       - ${{ stdlib("c") }}
@@ -41,6 +42,7 @@ requirements:
       - ${{ compiler("cxx") }}
       - ${{ compiler("cuda") }}
       - libcurand-dev
+      - libcufile-dev
 
 tests:
   - files:
