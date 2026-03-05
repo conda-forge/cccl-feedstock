@@ -6,7 +6,7 @@ schema_version: 1
 
 context:
   name: cccl
-  version: "3.2.1"
+  version: "3.3.0"
 
 package:
   name: ${{ name|lower }}
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://github.com/NVIDIA/cccl/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 8f776639bdad08113bf8ebf517c668b17a9bc2a3315205d39077433062e46c69
+  sha256: e3d719d6a04d2e8f303847cef515d5e63fd27b50f353dfc168f7c0527b6119e4
 
 build:
   number: 0
@@ -34,6 +34,8 @@ requirements:
     - ninja
   host:
     - libcurand-dev
+    - if: linux
+      then: libcufile-dev
   ignore_run_exports:
     from_package:
       - ${{ stdlib("c") }}
@@ -41,6 +43,8 @@ requirements:
       - ${{ compiler("cxx") }}
       - ${{ compiler("cuda") }}
       - libcurand-dev
+      - if: linux
+        then: libcufile-dev
 
 tests:
   - files:
