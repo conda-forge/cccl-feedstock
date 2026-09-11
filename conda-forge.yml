@@ -15,3 +15,5 @@ github:
 provider:
   linux_aarch64: default
   linux_ppc64le: default
+  win_64: github_actions
+  win_arm64: github_actions

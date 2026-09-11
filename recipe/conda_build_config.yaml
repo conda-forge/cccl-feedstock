@@ -1,0 +1,6 @@
+# The global conda-forge pinning does not enable a CUDA compiler on win-arm64,
+# so pin it here. cuda-nvcc_win-arm64 is only published for CUDA 13.4 and newer.
+cuda_compiler_version:      # [win and arm64]
+  - '13.4'                  # [win and arm64]
+cuda_compiler_version_min:  # [win and arm64]
+  - '13.4'                  # [win and arm64]
